@@ -8,7 +8,7 @@ if __name__ == "__main__":
     # Constante
     choice = ["c", "n", "color", "number"]
     color = ["red", "black"]
-    exit = ["o", "n", "yes", "no"]
+    exit = ["y", "n", "yes", "no"]
     # Création du joueur
     player = Player("", 1000)
     player.generate_player()
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     while play:
 
         # Choix du joueur.
-        player_choice = 37
+        player_choice = 0
         while player_choice not in choice:
             player_choice = input("What's your choice ? [Color/Number] ").lower()
             # Le joueur choisit une couleur.
@@ -32,7 +32,9 @@ if __name__ == "__main__":
                     player_choice = "black"
         # Le joueur choisit un nombre.
         elif player_choice == "n" or player_choice == "number":
+            player_choice = 37
             while player_choice < 0 or player_choice > 36:
+                player_choice = "n"
                 while not player_choice.isnumeric():
                     player_choice = input("Which number ? [0-36] ")
                 player_choice = int(player_choice)
@@ -77,7 +79,9 @@ if __name__ == "__main__":
         end = 0
         while end not in exit:
             end = input("Voulez-vous continuer ? [Yes/No] ").lower()
-        if end == "n" or end == "no":
+        if end == "n" or end == "no" or player.player_token < 5:
+            if player.player_token < 5:
+                print("Vous n'avez pas assez de jeton pour jouer.")
             play = False
 
     print("Arrivederci", player_name, "!")
